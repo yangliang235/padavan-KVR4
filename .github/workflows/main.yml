@@ -55,6 +55,15 @@ jobs:
         fi
         cp -f configs/templates/$TNAME.config .config
         sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
+            # 启用超频功能
+    echo "CONFIG_FIRMWARE_INCLUDE_OC=y" >> .config
+    
+    # 设置超频频率为1100MHz (对应十六进制值0x362)
+    echo 'CONFIG_FIRMWARE_MT7621_OC="0x362"' >> .config
+    
+    # 禁用WireGuard（可选，根据需求调整）
+    echo "CONFIG_FIRMWARE_INCLUDE_WIREGUARD=n" >> .config
+
         ################################################################################################
         ###  清除默认配置###
         sed -i '/CONFIG_FIRMWARE_ENABLE_IPV6/d' .config
